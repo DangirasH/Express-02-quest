@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config();
 
 const app = express();
+app.use(express.json());
 const mysql = require("mysql2/promise");
 const database = mysql.createPool({
   host: process.env.DB_HOST, // address of the server
@@ -26,6 +27,8 @@ app.get("/api/movies", movieHandlers.getMovies);
 app.get("/api/movies/:id", movieHandlers.getMovieById);
 app.get("/api/user", userHandlers.getUsers);
 app.get("/api/user/:id", userHandlers.getUsersById);
+app.post("/api/movies", movieHandlers.postMovie);
+app.post("/api/users", userHandlers.postUser);
 
 app.listen(port, (err) => {
   if (err) {
